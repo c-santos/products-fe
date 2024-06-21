@@ -1,4 +1,4 @@
-import { ProductStatus } from './product-status.enum';
+import { ProductStatus } from './enums/product-status.enum';
 
 export type Product = {
     id: string;
