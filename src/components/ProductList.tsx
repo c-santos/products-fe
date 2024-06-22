@@ -1,12 +1,8 @@
 import { useProducts } from './hooks/useProducts';
-import { Product } from './Product';
+import { Product } from './components/Product';
 
 export function ProductList() {
     const { products, isLoading } = useProducts();
-
-    if (isLoading) {
-        return <>Loading!</>;
-    }
 
     if (products?.length !== 0) {
         return (
