@@ -14,6 +14,8 @@ import {
 } from './ui/form';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { apiClient } from '@/api/api-client';
+import { RadioGroup, RadioGroupItem } from './ui/radio-group';
 
 export function AddProductForm() {
     const form = useForm<z.infer<typeof productFormSchema>>({
@@ -28,8 +30,14 @@ export function AddProductForm() {
         },
     });
 
-    const onSubmit = (values: z.infer<typeof productFormSchema>) => {
+    const onSubmit = async (values: z.infer<typeof productFormSchema>) => {
         console.log(values);
+        try {
+            const response = await apiClient.post('/products', values)
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     return (
@@ -132,24 +140,51 @@ export function AddProductForm() {
                                     />
                                 </FormControl>
                                 <FormDescription>
-                                    Indicate the quantity that has already been
-                                    sold.
+                                    This is the quantity that is unavailable to be sold.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
+
                     <FormField
                         control={form.control}
                         name='status'
                         render={({ field }) => (
-                            <FormItem>
+                            <FormItem className='space-y-3'>
                                 <FormLabel>Status</FormLabel>
                                 <FormControl>
-                                    <Input placeholder='Available' {...field} />
+                                    <RadioGroup
+                                        onValueChange={field.onChange}
+                                        defaultValue={ProductStatus.AVAILABLE}
+                                        className='flex flex-col space-y-1'
+                                    >
+
+                                        <FormItem className='flex items-center space-x-3 space-y-0'>
+                                            <FormControl>
+                                                <RadioGroupItem value={ProductStatus.AVAILABLE} />
+                                            </FormControl>
+                                            <FormLabel>Available</FormLabel>
+                                        </FormItem>
+
+                                        <FormItem className='flex items-center space-x-3 space-y-0'>
+                                            <FormControl>
+                                                <RadioGroupItem value={ProductStatus.RESERVED} />
+                                            </FormControl>
+                                            <FormLabel>Reserved</FormLabel>
+                                        </FormItem>
+
+                                        <FormItem className='flex items-center space-x-3 space-y-0'>
+                                            <FormControl>
+                                                <RadioGroupItem value={ProductStatus.SOLD} />
+                                            </FormControl>
+                                            <FormLabel>Sold</FormLabel>
+                                        </FormItem>
+
+                                    </RadioGroup>
                                 </FormControl>
                                 <FormDescription>
-                                    This will be the status of your product.
+                                    Choose the status of your product.
                                 </FormDescription>
                                 <FormMessage />
                             </FormItem>
