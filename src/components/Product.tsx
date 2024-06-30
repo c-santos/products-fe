@@ -1,16 +1,16 @@
+import { ProductStatus } from '@/enums/product-status.enum';
 import type { Product } from '../types/product.type';
 
 type ProductProps = Product;
 
 export function Product(props: ProductProps) {
     return (
-        <>
-            <h3>{props.name}</h3>
-            <p>{props.name}</p>
-            <p>{props.description}</p>
-            <p>{props.status}</p>
-            <p>{props.total_quantity}</p>
-            <p>{props.sold_quantity}</p>
-        </>
+        <div className='p-4'>
+            <h2>Name: {props.name}</h2>
+            <p>Description: {props.description}</p>
+            <p>Status: {ProductStatus[props.status]}</p>
+            <p>Total Quantity: {props.total_quantity}</p>
+            <p>Sold Quantity: {props.sold_quantity}</p>
+        </div>
     );
 }

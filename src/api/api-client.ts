@@ -7,15 +7,15 @@ const config: CreateAxiosDefaults = {
 
 const apiClient = axios.create(config);
 
-apiClient.interceptors.response.use(
-    (response) => {
-        console.log('Response: ', response);
-        return response;
-    },
-    (error) => {
-        console.log('Error: ', error);
-        return error;
-    },
-);
+// apiClient.interceptors.response.use(
+//     (response) => {
+//         console.log('Response: ', response);
+//         return response;
+//     },
+//     (error) => {
+//         console.log('Error: ', error);
+//         return error;
+//     },
+// );
 
 export { apiClient };
