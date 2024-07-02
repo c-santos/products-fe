@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import type { Product } from '../product.type';
-import { apiClient } from '../api-client';
+import type { Product } from '../types/product.type';
+import { apiClient } from '../api/api-client';
 
 export function useProducts() {
     const [products, setProducts] = useState<Product[] | null>(null);
@@ -11,6 +11,7 @@ export function useProducts() {
             setIsLoading(true);
             try {
                 const response = await apiClient.get('/products');
+                console.log('response: ', response);
                 setProducts(response.data.data);
             } catch (error) {
                 console.error(error);
@@ -20,7 +21,6 @@ export function useProducts() {
         };
 
         fetchProducts();
-        return () => {};
     }, []);
 
     return { products, isLoading };
