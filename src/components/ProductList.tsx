@@ -1,6 +1,6 @@
 import { apiClient } from "@/api/api-client";
 import { useEffect, useState } from "react";
-import { Product } from "./Product";
+import { Product } from "./ProductCard";
 import type { Product as ProductType } from "@/types/product.type";
 
 export function ProductList() {
